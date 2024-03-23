@@ -1,0 +1,33 @@
+﻿using Imoblink.DTOs;
+using MySql.Data.MySqlClient;
+
+namespace Imoblink.DAOs
+{
+    public class ImobiliariaDAO
+    {
+        public void CadastrarImobiliaria(ImobiliariaDTO imobiliaria)
+        {
+            var conexao = ConnectionFactory.build();
+            conexao.Open();
+
+            var query = @"INSERT INTO imobiliaria (RazaoSocial, CNPJ, RepresentanteLegal, CRECI, Email, senha, cep, 
+                       cidade, bairro, telefone)
+                    VALUES (@RazaoSocial, @CNPJ, @RepresentanteLegal, @CRECI, @Email, @senha, @cep, @
+                       @cidade, @bairro, @telefone);
+                    SELECT LAST_INSERT_ID(); ";
+
+            var comando = new MySqlCommand(query, conexao);
+            comando.Parameters.AddWithValue("@RazaoSocial", imobiliaria.RazaoSocial);
+            comando.Parameters.AddWithValue("@CNPJ", imobiliaria.CNPJ);
+            comando.Parameters.AddWithValue("@RepresentanteLegal", imobiliaria.RepresentanteLegal   );
+            comando.Parameters.AddWithValue("@CRECI", imobiliaria.CRECI);
+            comando.Parameters.AddWithValue("@Email", imobiliaria.Email);
+            comando.Parameters.AddWithValue("@senha", imobiliaria.senha);
+            comando.Parameters.AddWithValue("@cep", imobiliaria.cep);
+            comando.Parameters.AddWithValue("@cidade", imobiliaria.cidade);
+            comando.Parameters.AddWithValue("@bairro", imobiliaria.bairro);
+            comando.Parameters.AddWithValue("@telefone", imobiliaria.Telefone);
+
+        }
+    }
+}
