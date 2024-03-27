@@ -17,7 +17,6 @@ namespace Imoblink.DTOs
         public string suites { get; set; }
         public int salas { get; set; }
         public int garagens { get; set; }
-
         public int areasUteis { get; set; }
         public int CondominioFechado { get; set; }
         public int velor { get; set; }

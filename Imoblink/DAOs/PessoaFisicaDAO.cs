@@ -30,4 +30,5 @@ namespace Imoblink.DAOs
             comando.Parameters.AddWithValue("@notificacao", pessoaFisica.notificacao);
 
         }
+    }
 }

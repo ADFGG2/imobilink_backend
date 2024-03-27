@@ -9,7 +9,7 @@
         public string Celular { get; set; }
         public string Telefone { get; set; }
         public string senha { get; set; }
-        public int notificacao { get; set; }
+        public int notifica { get; set; }
 
         
                
