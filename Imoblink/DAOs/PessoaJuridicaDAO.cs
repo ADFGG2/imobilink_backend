@@ -7,14 +7,13 @@ namespace Imoblink.DAOs
     {
         public void CadastrarPessoaJuridica(PessoaJuridicaDTO pessoaJuridica)
         {
-            var conexao = ConnectionFactory.build();
+            var conexao = ConnectionFactory.Build();
             conexao.Open();
 
             var query = @"INSERT INTO pessoaJuridica (NomeEmpresa, CNPJ, InscricaoEstadual, email, celular, telefone, senha, 
                        cidade, cep, bairro)
                     VALUES (@NomeEmpresa, @CNPJ, @InscricaoEstadual, @Email, @celular, @telefone, @senha, 
-                       @cidade, @cep, @bairro, @notificacao);
-                    SELECT LAST_INSERT_ID(); ";
+                       @cidade, @cep, @bairro, @notificacao); ";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@NomeEmpresa", pessoaJuridica.NomeEmpresa);
@@ -27,6 +26,9 @@ namespace Imoblink.DAOs
             comando.Parameters.AddWithValue("@cidade", pessoaJuridica.cidade);
             comando.Parameters.AddWithValue("@cep", pessoaJuridica.cep);
             comando.Parameters.AddWithValue("@bairro", pessoaJuridica.bairro);
+
+            comando.ExecuteNonQuery();
+            conexao.Close();
         }
     }
 }

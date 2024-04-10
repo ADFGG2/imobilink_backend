@@ -7,14 +7,13 @@ namespace Imoblink.DAOs
     {
         public void CadastrarImobiliaria(ImobiliariaDTO imobiliaria)
         {
-            var conexao = ConnectionFactory.build();
+            var conexao = ConnectionFactory.Build();
             conexao.Open();
 
             var query = @"INSERT INTO imobiliaria (RazaoSocial, CNPJ, RepresentanteLegal, CRECI, Email, senha, cep, 
                        cidade, bairro, telefone)
                     VALUES (@RazaoSocial, @CNPJ, @RepresentanteLegal, @CRECI, @Email, @senha, @cep, @
-                       @cidade, @bairro, @telefone);
-                    SELECT LAST_INSERT_ID(); ";
+                       @cidade, @bairro, @telefone); ";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@RazaoSocial", imobiliaria.RazaoSocial);
@@ -28,6 +27,9 @@ namespace Imoblink.DAOs
             comando.Parameters.AddWithValue("@bairro", imobiliaria.bairro);
             comando.Parameters.AddWithValue("@telefone", imobiliaria.Telefone);
 
+
+            comando.ExecuteNonQuery();
+            conexao.Close();
         }
     }
 }

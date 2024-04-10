@@ -7,27 +7,27 @@ namespace Imoblink.DAOs
     {
         public void CadastrarPessoaFisica(PessoaFisicaDTO pessoaFisica)
         {
-            var conexao = ConnectionFactory.build();
+            var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = @"INSERT INTO pessoaFisica (cpf, nome, rg, Email, celular, telefone, senha, 
-                       cidade, cep, bairro, notificacao)
-                    VALUES (@cpf, @nome, @rg, @Email, @celular, @telefone, @senha, 
-                       @cidade, @cep, @bairro, @notificacao);
-                    SELECT LAST_INSERT_ID(); ";
+            var query = @"INSERT INTO pessoafisica (cpf, nome, rg, Email, telefone, senha, 
+                       cidade, cep, bairro)
+                    VALUES (@cpf, @nome, @rg, @Email, @telefone, @senha, 
+                       @cidade, @cep, @bairro); ";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@cpf", pessoaFisica.cpf);
             comando.Parameters.AddWithValue("@nome", pessoaFisica.nome);
             comando.Parameters.AddWithValue("rg", pessoaFisica.rg);
             comando.Parameters.AddWithValue("@Email", pessoaFisica.email);
-            comando.Parameters.AddWithValue("@celular", pessoaFisica.celular);
             comando.Parameters.AddWithValue("@telefone", pessoaFisica.telefone);
             comando.Parameters.AddWithValue("@senha", pessoaFisica.senha);
             comando.Parameters.AddWithValue("@cidade", pessoaFisica.cidade);
             comando.Parameters.AddWithValue("@cep", pessoaFisica.cep);
             comando.Parameters.AddWithValue("@bairro", pessoaFisica.bairro);
-            comando.Parameters.AddWithValue("@notificacao", pessoaFisica.notificacao);
 
+            comando.ExecuteNonQuery();
+            conexao.Close();
         }
+    }
 }
