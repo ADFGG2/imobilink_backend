@@ -12,7 +12,7 @@ namespace Imoblink.DAOs
 
             var query = @"INSERT INTO imobiliaria (RazaoSocial, CNPJ, RepresentanteLegal, CRECI, Email, senha, cep, 
                        cidade, bairro, telefone)
-                    VALUES (@RazaoSocial, @CNPJ, @RepresentanteLegal, @CRECI, @Email, @senha, @cep, @
+                    VALUES (@RazaoSocial, @CNPJ, @RepresentanteLegal, @CRECI, @Email, @senha, @cep,
                        @cidade, @bairro, @telefone); ";
 
             var comando = new MySqlCommand(query, conexao);

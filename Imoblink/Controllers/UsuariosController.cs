@@ -23,23 +23,28 @@ namespace Imoblink.Controllers
         {
             var dao = new UsuarioDAO();
             var tipo = dao.VerificaQualTipoDeLogin(usuario);
+            var loginResponse = new LoginResponseDTO();
 
             switch (tipo)
             {
                 case 1:
                     usuario.DadosUsuario = dao.LoginImobiliaria(usuario);
+                    loginResponse.Page = "TelaPrincipal1";
                     break;
 
                 case 2:
                     usuario.DadosUsuario = dao.LoginCorretor(usuario);
+                    loginResponse.Page = "TelaPrincipal1";
                     break;
 
                 case 3:
-                    usuario.DadosUsuario = dao.LoginJuridica(usuario);
+                    usuario.DadosUsuario = dao.LoginFisica(usuario);
+                    loginResponse.Page = "TelaPrincipal2";
                     break;
 
                 case 4:
-                    usuario.DadosUsuario = dao.LoginFisica(usuario);
+                    usuario.DadosUsuario = dao.LoginJuridica(usuario);
+                    loginResponse.Page = "TelaPrincipal2";
                     break;
 
                 default:
@@ -49,21 +54,21 @@ namespace Imoblink.Controllers
    
 
             var token = GenerateJwtToken(usuario);
+            loginResponse.Token = token;    
 
-            return Ok(new { token });
+            return Ok(loginResponse);
         }
 
-      /*  [HttpGet]
-        [Route("GetUserData")]
-        public IActionResult GetUserData()  
+        [HttpPost]
+        [Route("TipoLogin")]
+        public IActionResult TipoLogin([FromForm] UsuarioDTO usuario)  
         {
-            var dao = new UsuarioDAO();
-            var id = int.Parse(HttpContext.User.FindFirst("id")?.Value);
+            var usuarioDao = new UsuarioDAO();
+            int tipo;
+            tipo = usuarioDao.VerificaQualTipoDeLogin(usuario);           
 
-            var usuario = dao.BuscarUsuarioPorID(id);
-
-            return Ok(usuario);
-        }*/
+            return Ok(tipo);
+        }
 
         private string GenerateJwtToken(UsuarioDTO usuario)
         {
@@ -90,15 +95,15 @@ namespace Imoblink.Controllers
             {
                 var dados = (ImobiliariaDTO)usuario.DadosUsuario;
                 claims.Add(new Claim("CNPJ", dados.CNPJ));
-                claims.Add(new Claim("RazaoSocial", dados.CNPJ));
+                claims.Add(new Claim("RazaoSocial", dados.RazaoSocial));
                 claims.Add(new Claim("RepresentanteLegal", dados.RepresentanteLegal));
-                claims.Add(new Claim("CRECI", dados.CRECI.ToString()));
+                claims.Add(new Claim("CRECI", dados.CRECI));
                 claims.Add(new Claim("Email", dados.Email));
-                claims.Add(new Claim("senha", dados.senha));
                 claims.Add(new Claim("cep", dados.cep));
                 claims.Add(new Claim("cidade", dados.cidade));
                 claims.Add(new Claim("bairro", dados.bairro));
                 claims.Add(new Claim("Telefone", dados.Telefone));
+                claims.Add(new Claim("Tipo", "Imobiliaria"));
 
 
                 return claims;
@@ -108,10 +113,10 @@ namespace Imoblink.Controllers
                 var dados = (CorretorDTO)usuario.DadosUsuario;
                 claims.Add(new Claim("CPF", dados.CPF));
                 claims.Add(new Claim("Nome", dados.Nome_completo));
-                claims.Add(new Claim("CRECI", dados.CRECI.ToString()));
+                claims.Add(new Claim("CRECI", dados.CRECI));
                 claims.Add(new Claim("Email", dados.Email));
-                claims.Add(new Claim("Celular", dados.Celular));
                 claims.Add(new Claim("Telefone", dados.Telefone));
+                claims.Add(new Claim("Tipo", "Corretor"));
 
                 return claims;
             }
@@ -123,11 +128,11 @@ namespace Imoblink.Controllers
                 claims.Add(new Claim("rg", dados.rg));
                 claims.Add(new Claim("email", dados.email));
                 claims.Add(new Claim("telefone", dados.telefone));
-                claims.Add(new Claim("senha", dados.senha));
                 claims.Add(new Claim("cidade", dados.cidade));
                 claims.Add(new Claim("cep", dados.cep));
                 claims.Add(new Claim("bairro", dados.bairro));
 
+                claims.Add(new Claim("Tipo", "PF"));
 
                 return claims;
             }
@@ -138,13 +143,12 @@ namespace Imoblink.Controllers
                 claims.Add(new Claim("InscricaoEstadual", dados.InscricaoEstadual));
                 claims.Add(new Claim("CNPJ", dados.CNPJ));
                 claims.Add(new Claim("Email", dados.Email));
-                claims.Add(new Claim("Celular", dados.Celular));
                 claims.Add(new Claim("Telefone", dados.Telefone));
-                claims.Add(new Claim("senha", dados.senha));
                 claims.Add(new Claim("cidade", dados.cidade));
                 claims.Add(new Claim("cep", dados.cep));
                 claims.Add(new Claim("bairro", dados.bairro));
 
+                claims.Add(new Claim("Tipo", "PJ"));
 
 
                 return claims;

@@ -11,9 +11,9 @@ namespace Imoblink.DAOs
             conexao.Open();
 
             var query = @"INSERT INTO pessoafisica (cpf, nome, rg, Email, telefone, senha, 
-                       cidade, cep, bairro)
+                       cidade, cep, bairro, nascimento)
                     VALUES (@cpf, @nome, @rg, @Email, @telefone, @senha, 
-                       @cidade, @cep, @bairro); ";
+                       @cidade, @cep, @bairro, @nascimento); ";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@cpf", pessoaFisica.cpf);
@@ -25,6 +25,7 @@ namespace Imoblink.DAOs
             comando.Parameters.AddWithValue("@cidade", pessoaFisica.cidade);
             comando.Parameters.AddWithValue("@cep", pessoaFisica.cep);
             comando.Parameters.AddWithValue("@bairro", pessoaFisica.bairro);
+            comando.Parameters.AddWithValue("@nascimento", pessoaFisica.nascimento);
 
             comando.ExecuteNonQuery();
             conexao.Close();

@@ -9,7 +9,7 @@ namespace Imoblink.Controllers
     [ApiController]
     public class PessoasJuridicasController : ControllerBase
     {
-        [HttpGet]
+        [HttpPost]
         [Route("CadastrarPessoaJuridica")]
 
         public IActionResult CadastrarPessoaJuridica([FromBody] PessoaJuridicaDTO pessoaJuridica)

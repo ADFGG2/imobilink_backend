@@ -9,7 +9,7 @@ namespace Imoblink.Controllers
     [ApiController]
     public class ImobiliariasController : ControllerBase
     {
-        [HttpGet]
+        [HttpPost]
         [Route("CadastrarImobiliaria")]
 
         public IActionResult CadastrarImobiliaria([FromBody] ImobiliariaDTO imobiliaria)

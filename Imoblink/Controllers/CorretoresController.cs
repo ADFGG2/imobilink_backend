@@ -9,7 +9,7 @@ namespace Imoblink.Controllers
     [ApiController]
     public class CorretoresController : ControllerBase
     {
-        [HttpGet]
+        [HttpPost]
         [Route("CadastrarCorretor")]
 
         public IActionResult CadastrarCorretor([FromBody] CorretorDTO corretor)

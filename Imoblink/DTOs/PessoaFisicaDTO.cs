@@ -7,11 +7,11 @@
         public string? rg { get; set;}
         public string? email { get; set;}
         public string? telefone { get; set;}
+        public string? nascimento { get; set;}
         public string? senha { get; set;}
         public string? cidade { get; set;}
         public string? cep { get; set;}
         public string? bairro { get; set;}
-        public int? type { get; set; }
 
     }
 }

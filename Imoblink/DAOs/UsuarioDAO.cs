@@ -6,21 +6,11 @@ namespace Imoblink.DAOs
 {
     public class UsuarioDAO
     {
-        
+
         public int VerificaQualTipoDeLogin(UsuarioDTO usuario)
-        {   
-            var user = new UsuarioDTO();
+        {
             var conexao = ConnectionFactory.Build();
-            conexao.Open();
-
-             
-            var imobiliaria = new ImobiliariaDTO();
-            var corretor = new CorretorDTO();
-            var pessoaFisica = new PessoaFisicaDTO();
-            var pessoaJuridica = new PessoaJuridicaDTO();
-            
-
-
+       
             var query1 = "SELECT CNPJ as id, senha FROM imobiliaria WHERE CNPJ = @user and senha = @senha";
             var query2 = "SELECT CPF as id, senha FROM corretor WHERE CPF = @user and senha = @senha";
             var query3 = "SELECT CPF as id, senha FROM pessoafisica WHERE CPF = @user and senha = @senha";
@@ -28,7 +18,10 @@ namespace Imoblink.DAOs
 
             //-------------------------------------------------------------------------------------------
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 1; i <= 4; i++)
+            {
+                conexao.Open();
+
                 var comando = new MySqlCommand();
                 if (i == 1)
                 {
@@ -42,7 +35,7 @@ namespace Imoblink.DAOs
                 {
                     comando = new MySqlCommand(query3, conexao);
                 }
-                else if(i == 4)
+                else if (i == 4)
                 {
                     comando = new MySqlCommand(query4, conexao);
                 }
@@ -52,20 +45,23 @@ namespace Imoblink.DAOs
 
                 var dataReader = comando.ExecuteReader();
 
+                while (dataReader.Read())
+                {
+                    return i;
+                }
 
-               
+                conexao.Close();
+            }
 
-                              
-            }    
-            
+
             return 0;
         }
 
-      
 
-           public ImobiliariaDTO LoginImobiliaria(UsuarioDTO usuario)
+
+        public ImobiliariaDTO LoginImobiliaria(UsuarioDTO usuario)
         {
-            
+
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
@@ -84,8 +80,12 @@ namespace Imoblink.DAOs
                 imobiliaria.RazaoSocial = dataReader["RazaoSocial"].ToString();
                 imobiliaria.CNPJ = dataReader["CNPJ"].ToString();
                 imobiliaria.Email = dataReader["email"].ToString();
-                imobiliaria.CRECI = Convert.ToInt32(dataReader["CRECI"].ToString());
+                imobiliaria.CRECI = dataReader["CRECI"].ToString();
                 imobiliaria.RepresentanteLegal = dataReader["representantelegal"].ToString();
+                imobiliaria.cidade = dataReader["cidade"].ToString();
+                imobiliaria.cep = dataReader["cep"].ToString();
+                imobiliaria.bairro = dataReader["bairro"].ToString();
+                imobiliaria.Telefone = dataReader["Telefone"].ToString();
             }
 
             conexao.Close();
@@ -111,11 +111,11 @@ namespace Imoblink.DAOs
 
             while (dataReader.Read())
             {
-                corretor.Nome_completo = dataReader["nomecompleto"].ToString();
-                corretor.CRECI = Convert.ToInt32(dataReader["CRECI"].ToString());
+                corretor.Nome_completo = dataReader["nome_completo"].ToString();
+                corretor.CRECI = dataReader["CRECI"].ToString();
                 corretor.Email = dataReader["email"].ToString();
-                corretor.Celular = dataReader["celular"].ToString();
                 corretor.CPF = dataReader["cpf"].ToString();
+                corretor.Telefone = dataReader["telefone"].ToString();
             }
 
             conexao.Close();
@@ -125,7 +125,7 @@ namespace Imoblink.DAOs
 
         public PessoaJuridicaDTO LoginJuridica(UsuarioDTO usuario)
         {
-
+            
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
@@ -141,11 +141,15 @@ namespace Imoblink.DAOs
 
             while (dataReader.Read())
             {
-                pessoaJuridica.NomeEmpresa = dataReader["RazaoSocial"].ToString();
+                pessoaJuridica.NomeEmpresa = dataReader["NomeEmpresa"].ToString();
                 pessoaJuridica.CNPJ = dataReader["CNPJ"].ToString();
-                pessoaJuridica.InscricaoEstadual = dataReader["inscricaoestadual"].ToString();
-                pessoaJuridica.Email = dataReader["email"].ToString();
-                pessoaJuridica.Telefone = dataReader["telefone"].ToString();
+                pessoaJuridica.InscricaoEstadual = dataReader["Inscricaoestadual"].ToString();
+                pessoaJuridica.Email = dataReader["Email"].ToString();
+                pessoaJuridica.Telefone = dataReader["Telefone"].ToString();
+                pessoaJuridica.cidade = dataReader["cidade"].ToString();
+                pessoaJuridica.cep = dataReader["cep"].ToString();
+                pessoaJuridica.bairro = dataReader["bairro"].ToString();
+
             }
 
             conexao.Close();
@@ -171,11 +175,14 @@ namespace Imoblink.DAOs
 
             while (dataReader.Read())
             {
-                pessoafisica.nome = dataReader["RazaoSocial"].ToString();
+                pessoafisica.nome = dataReader["nome"].ToString();
                 pessoafisica.cpf = dataReader["CPF"].ToString();
                 pessoafisica.rg = dataReader["rg"].ToString();
                 pessoafisica.email = dataReader["email"].ToString();
-                pessoafisica.telefone= dataReader["telefone"].ToString();
+                pessoafisica.telefone = dataReader["telefone"].ToString();
+                pessoafisica.cidade = dataReader["cidade"].ToString();
+                pessoafisica.cep = dataReader["cep"].ToString();
+                pessoafisica.bairro = dataReader["bairro"].ToString();
             }
 
             conexao.Close();
