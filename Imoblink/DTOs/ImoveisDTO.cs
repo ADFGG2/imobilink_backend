@@ -4,30 +4,33 @@ namespace Imoblink.DTOs
 {
     public class ImoveisDTO
     {
-        public int Codigo { get; set; }
+        public int? Codigo { get; set; }
         public int Matricula { get; set; }
-        public int Alugavel { get; set; }
-        public string endereco { get; set; }
-        public string cep { get; set; }
-        public string bairro { get; set; }
-        public string cidade { get; set; }
-        public string tipo { get; set; }
-        public int andares { get; set; }
-        public int dormitorios { get; set; }
-        public string suites { get; set; }
-        public int salas { get; set; }
-        public int garagens { get; set; }
-        public int areaUtil { get; set; }
-        public int CondominioFechado { get; set; }
-        public int valor { get; set; }
-        public int status { get; set; }
-        public int autorizaFoto { get; set; }
-        public int autorizaPlaca { get; set; }
-        public string finalidade { get; set; }
-        public string descricao { get; set; }
-        public  int taxaCondo { get; set; }
-        public int taxaIPTU { get; set; }
-
-        public List<ImoveisDTO>? ListarImoveis { get; set; }
+        public string Endereco { get; set; }
+        public string CEP { get; set; }
+        public string Bairro { get; set; }
+        public string Cidade { get; set; }
+        public string Tipo { get; set; }
+        public int Andares { get; set; }
+        public int Dormitorios { get; set; }
+        public int Suites { get; set; }
+        public int Salas { get; set; }
+        public int Garagens { get; set; }
+        public double AreaUtil { get; set; }
+        public Boolean CondominioFechado { get; set; }
+        public double Valor { get; set; }
+        public string Status { get; set; }
+        public Boolean AutorizaFoto { get; set; }
+        public Boolean AutorizaPlaca { get; set; }
+        public string Finalidade { get; set; }
+        public string Descricao { get; set; }
+        public double TaxaCondo { get; set; }
+        public double TaxaIPTU { get; set; }
+        public List<int>? Observacoes { get; set; }
+        public string IdDono {  get; set; }
+        public int UnidadesDisponiveis { get; set; }
+        public List<string>? ObservacoesNomes { get; set; }
+        public string? NomeAutor { get; set; } 
+       
     }
 }

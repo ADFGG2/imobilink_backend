@@ -6,7 +6,7 @@ namespace Imoblink.DAOs
     {
         public static MySqlConnection Build()
         {
-            var connectionString = "Server=localhost; Database=imoblink;Uid=root;Pwd=;";
+            var connectionString = "Server=localhost; Database=imoblink;Uid=root;Pwd=12345GojoU$$;";
             return new MySqlConnection(connectionString);
         }
 

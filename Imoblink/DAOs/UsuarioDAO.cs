@@ -189,5 +189,47 @@ namespace Imoblink.DAOs
 
             return pessoafisica;
         }
+
+        public string VerificaTipoDeUsuario(string id)
+        {
+            var conexao = ConnectionFactory.Build();
+
+            var query1 = "SELECT CPF as id FROM pessoafisica WHERE CPF = @user";
+            var query2 = "SELECT CNPJ as id FROM pessoajuridica WHERE CNPJ = @user";
+
+            //-------------------------------------------------------------------------------------------
+
+            for (int i = 1; i <= 2; i++)
+            {
+                conexao.Open();
+
+                var comando = new MySqlCommand();
+                if (i == 1)
+                {
+                    comando = new MySqlCommand(query1, conexao);
+                }
+                else if (i == 2)
+                {
+                    comando = new MySqlCommand(query2, conexao);
+                }
+
+                comando.Parameters.AddWithValue("@user", id);
+
+                var dataReader = comando.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    if (i == 1)
+                    {
+                        return "PF";
+                    }
+                    return "PJ";
+                }
+
+                conexao.Close();
+            }
+
+            return "";
+        }
     }
 }
