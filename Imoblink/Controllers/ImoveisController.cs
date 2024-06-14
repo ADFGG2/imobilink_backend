@@ -42,6 +42,7 @@ namespace Imoblink.Controllers
 
             return Ok();
         }
+
         [HttpDelete]
         [Route("ApagarImagem/{id}")]
         public IActionResult ApagarImagem([FromRoute] int id)
@@ -51,6 +52,7 @@ namespace Imoblink.Controllers
 
             return Ok();
         }
+
         [HttpGet]
         [Route("ListarImagens/{idImovel}")]
         public IActionResult ListarImoveis([FromRoute] int idImovel)    

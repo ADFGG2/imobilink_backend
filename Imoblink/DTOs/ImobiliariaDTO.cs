@@ -13,6 +13,7 @@
         public string? cidade { get; set; }
         public string? bairro { get; set; }
         public string? Telefone { get; set; }
+        public string? URL_imagem_perfil { get; set; }
 
     }
 }

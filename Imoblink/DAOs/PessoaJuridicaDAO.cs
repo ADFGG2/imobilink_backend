@@ -29,5 +29,19 @@ namespace Imoblink.DAOs
             comando.ExecuteNonQuery();
             conexao.Close();
         }
+        public void adicionarImagemdePerfil(int id, string url)
+        {
+            var conexao = ConnectionFactory.Build();
+            conexao.Open();
+
+            var query = @"update pessoajuridica set URL_imagem_Perfil = @id where pessoajuridica.CNPJ;";
+
+            var comando = new MySqlCommand(query, conexao);
+            comando.Parameters.AddWithValue("@id", id);
+            comando.Parameters.AddWithValue("@url", url);
+
+            comando.ExecuteNonQuery();
+            conexao.Close();
+        }
     }
 }

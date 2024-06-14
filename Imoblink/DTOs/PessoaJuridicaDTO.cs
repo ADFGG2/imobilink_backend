@@ -11,5 +11,6 @@
         public string? cidade { get; set; }
         public string? cep { get; set; }
         public string? bairro { get; set; }
+        public string? URL_imagem_perfil { get; set; }
     }
 }
