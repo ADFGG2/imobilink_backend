@@ -86,6 +86,7 @@ namespace Imoblink.DAOs
                 imobiliaria.cep = dataReader["cep"].ToString();
                 imobiliaria.bairro = dataReader["bairro"].ToString();
                 imobiliaria.Telefone = dataReader["Telefone"].ToString();
+                imobiliaria.URL_imagem_perfil = dataReader["URL_imagem_Perfil"].ToString();
             }
 
             conexao.Close();
@@ -116,6 +117,7 @@ namespace Imoblink.DAOs
                 corretor.Email = dataReader["email"].ToString();
                 corretor.CPF = dataReader["cpf"].ToString();
                 corretor.Telefone = dataReader["telefone"].ToString();
+                corretor.URL_imagem_perfil = dataReader["URL_imagem_Perfil"].ToString();
             }
 
             conexao.Close();
@@ -149,6 +151,7 @@ namespace Imoblink.DAOs
                 pessoaJuridica.cidade = dataReader["cidade"].ToString();
                 pessoaJuridica.cep = dataReader["cep"].ToString();
                 pessoaJuridica.bairro = dataReader["bairro"].ToString();
+                pessoaJuridica.URL_imagem_perfil = dataReader["URL_imagem_Perfil"].ToString();
 
             }
 
@@ -183,6 +186,7 @@ namespace Imoblink.DAOs
                 pessoafisica.cidade = dataReader["cidade"].ToString();
                 pessoafisica.cep = dataReader["cep"].ToString();
                 pessoafisica.bairro = dataReader["bairro"].ToString();
+                pessoafisica.URL_imagem_perfil = dataReader["URL_imagem_Perfil"].ToString();
             }
 
             conexao.Close();

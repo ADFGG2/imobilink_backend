@@ -104,6 +104,7 @@ namespace Imoblink.Controllers
                 claims.Add(new Claim("bairro", dados.bairro));
                 claims.Add(new Claim("Telefone", dados.Telefone));
                 claims.Add(new Claim("Tipo", "Imobiliaria"));
+                claims.Add(new Claim("URL_imagem_perfil", dados.URL_imagem_perfil));
 
 
                 return claims;
@@ -117,6 +118,7 @@ namespace Imoblink.Controllers
                 claims.Add(new Claim("Email", dados.Email));
                 claims.Add(new Claim("Telefone", dados.Telefone));
                 claims.Add(new Claim("Tipo", "Corretor"));
+                claims.Add(new Claim("URL_imagem_perfil", dados.URL_imagem_perfil));
 
                 return claims;
             }
@@ -131,6 +133,7 @@ namespace Imoblink.Controllers
                 claims.Add(new Claim("cidade", dados.cidade));
                 claims.Add(new Claim("cep", dados.cep));
                 claims.Add(new Claim("bairro", dados.bairro));
+                claims.Add(new Claim("URL_imagem_perfil", dados.URL_imagem_perfil));
 
                 claims.Add(new Claim("Tipo", "PF"));
 
@@ -147,6 +150,7 @@ namespace Imoblink.Controllers
                 claims.Add(new Claim("cidade", dados.cidade));
                 claims.Add(new Claim("cep", dados.cep));
                 claims.Add(new Claim("bairro", dados.bairro));
+                claims.Add(new Claim("URL_imagem_perfil", dados.URL_imagem_perfil));
 
                 claims.Add(new Claim("Tipo", "PJ"));
 
