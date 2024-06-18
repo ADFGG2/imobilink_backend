@@ -31,6 +31,7 @@ namespace Imoblink.DTOs
         public int UnidadesDisponiveis { get; set; }
         public List<string>? ObservacoesNomes { get; set; }
         public string? NomeAutor { get; set; } 
+        public int? quantasImagens { get; set; }
        
     }
 }

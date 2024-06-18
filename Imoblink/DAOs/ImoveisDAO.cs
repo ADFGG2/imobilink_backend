@@ -114,7 +114,7 @@ namespace Imoblink.DAOs
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "SELECT*FROM Imoveis";
+            var query = "SELECT imoveis.*, COUNT(imovel_images.id) as quantas_imagens FROM imoveis LEFT JOIN imovel_images ON imovel.Codigo = imagem.id_imovel GROUP BY imoveis.Codigo HAVING COUNT(imovel_images.id) > 5;";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();
@@ -147,6 +147,7 @@ namespace Imoblink.DAOs
                 imovel.TaxaCondo = int.Parse(dataReader["taxaCondo"].ToString());
                 imovel.TaxaIPTU = int.Parse(dataReader["taxaIPTU"].ToString());
                 imovel.UnidadesDisponiveis = int.Parse(dataReader["unidadesDisponiveis"].ToString());
+                imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
                 imovel.NomeAutor = PegaNomeDono(id);
@@ -161,7 +162,7 @@ namespace Imoblink.DAOs
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "SELECT*FROM Imoveis inner join imovel_pessoajuridica on Imoveis.Codigo = imovel_pessoajuridica.codigo_imovel where imovel_pessoajuridica.CNPJ_pessoaJuridica = @cnpj";
+            var query = "SELECT Imoveis.*, COUNT(imovel_images.id) as quantas_imagens FROM Imoveis inner join imovel_pessoajuridica on Imoveis.Codigo = imovel_pessoajuridica.codigo_imovel LEFT JOIN imovel_images ON imoveis.Codigo = imovel_images.id_imovel where imovel_pessoajuridica.CNPJ_pessoaJuridica = @cnpj GROUP BY imoveis.Codigo";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@cnpj", cnpj);
@@ -195,6 +196,7 @@ namespace Imoblink.DAOs
                 imovel.TaxaCondo = int.Parse(dataReader["taxaCondo"].ToString());
                 imovel.TaxaIPTU = int.Parse(dataReader["taxaIPTU"].ToString());
                 imovel.UnidadesDisponiveis = int.Parse(dataReader["unidadesDisponiveis"].ToString());
+                imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
                 imovel.NomeAutor = PegaNomeDono(id);
@@ -208,7 +210,7 @@ namespace Imoblink.DAOs
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "select * from imoblink.imoveis inner join imoblink.imovel_pessoafisica on imoblink.imoveis.Codigo = imoblink.imovel_pessoafisica.codigo_imovel where imoblink.imovel_pessoafisica.cpf_pessoaFisica = @cpf";
+            var query = "select Imoveis.*, COUNT(imovel_images.id) as quantas_imagens from imoblink.imoveis inner join imoblink.imovel_pessoafisica on imoblink.imoveis.Codigo = imoblink.imovel_pessoafisica.codigo_imovel LEFT JOIN imovel_images  ON imoveis.Codigo = imovel_images.id_imovel where imoblink.imovel_pessoafisica.cpf_pessoaFisica  = @cpf GROUP BY imoveis.Codigo";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@cpf", cpf);
@@ -242,6 +244,7 @@ namespace Imoblink.DAOs
                 imovel.TaxaCondo = double.Parse(dataReader["taxaCondo"].ToString());
                 imovel.TaxaIPTU = double.Parse(dataReader["taxaIPTU"].ToString());
                 imovel.UnidadesDisponiveis = int.Parse(dataReader["unidadesDisponiveis"].ToString());
+                imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
                 imovel.NomeAutor = PegaNomeDono(id);
@@ -256,7 +259,7 @@ namespace Imoblink.DAOs
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "select * from imoveis where finalidade = 'VENDA'";
+            var query = "SELECT imoveis.*, COUNT(imovel_images.id) as quantas_imagens FROM imoveis LEFT JOIN imovel_images ON imovel.Codigo = imagem.id_imovel  where finalidade = 'VENDA' GROUP BY imoveis.Codigo HAVING COUNT(imovel_images.id) > 5;";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();
@@ -289,6 +292,7 @@ namespace Imoblink.DAOs
                 imovel.TaxaCondo = double.Parse(dataReader["taxaCondo"].ToString());
                 imovel.TaxaIPTU = double.Parse(dataReader["taxaIPTU"].ToString());
                 imovel.UnidadesDisponiveis = int.Parse(dataReader["unidadesDisponiveis"].ToString());
+                imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
                 imovel.NomeAutor = PegaNomeDono(id);
@@ -303,7 +307,7 @@ namespace Imoblink.DAOs
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "select * from imoveis where finalidade = 'ALUGUEL'";
+            var query = "SELECT imoveis.*, COUNT(imovel_images.id) as quantas_imagens FROM imoveis LEFT JOIN imovel_images ON imovel.Codigo = imagem.id_imovel  where finalidade = 'ALUGUEL' GROUP BY imoveis.Codigo HAVING COUNT(imovel_images.id) > 5;";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();
@@ -336,6 +340,7 @@ namespace Imoblink.DAOs
                 imovel.TaxaCondo = double.Parse(dataReader["taxaCondo"].ToString());
                 imovel.TaxaIPTU = double.Parse(dataReader["taxaIPTU"].ToString());
                 imovel.UnidadesDisponiveis = int.Parse(dataReader["unidadesDisponiveis"].ToString());
+                imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
                 imovel.NomeAutor = PegaNomeDono(id);
