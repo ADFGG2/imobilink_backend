@@ -31,7 +31,7 @@ namespace Imoblink.DAOs
             conexao.Close();
         }
 
-        public void adicionarImagemdePerfil(int id, string url)
+        public void adicionarImagemdePerfil(string id, string url)
         {
             var conexao = ConnectionFactory.Build();
             conexao.Open();

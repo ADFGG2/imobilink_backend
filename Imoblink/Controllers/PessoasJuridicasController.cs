@@ -23,14 +23,15 @@ namespace Imoblink.Controllers
 
         [HttpPost]
         [Route("DefinirImagemDePerfil")]
-        public IActionResult DefinirImagemDePerfil(int id, string URLImage)
+        public IActionResult DefinirImagemDePerfil( string URLImage)
         {
 
             var azureBlobStorage = new AzureBlobStorage();
             var imagem = azureBlobStorage.UploadImage(URLImage);
+            var CNPJ = HttpContext.User.FindFirst("CNPJ")?.Value;
 
             var dao = new PessoaJuridicaDAO();
-            dao.adicionarImagemdePerfil(id, imagem);
+            dao.adicionarImagemdePerfil(CNPJ, imagem);
 
             return Ok();
         }
