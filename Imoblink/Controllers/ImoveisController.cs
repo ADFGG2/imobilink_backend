@@ -127,5 +127,25 @@ namespace Imoblink.Controllers
 
             return Ok(dao.ListarImoveisAlugaveis());
         }
+
+        [HttpGet]
+        [Route("ListarImoveisFavoritosCorretora")]
+        public IActionResult ListarImoveisFavoritosCorretora()
+        {
+            var CPF = HttpContext.User.FindFirst("CPF")?.Value;
+            var dao = new ImoveisDAO();
+
+            return Ok(dao.listarImoveisFavoritosCorretora(CPF));
+        }
+
+        [HttpGet]
+        [Route("ListarImoveisFavoritosImobiliaria")]
+        public IActionResult ListarImoveisFavoritosImobiliaria()
+        {
+            var CNPJ = HttpContext.User.FindFirst("CNPJ")?.Value;
+            var dao = new ImoveisDAO();
+
+            return Ok(dao.listarImoveisFavoritosImobiliaria(CNPJ));
+        }
     }  
 }

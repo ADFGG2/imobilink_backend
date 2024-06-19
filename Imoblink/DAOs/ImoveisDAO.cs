@@ -351,6 +351,116 @@ namespace Imoblink.DAOs
             return imoveis;
         }
 
+        public List<ImoveisDTO> listarImoveisFavoritosCorretora(string cnpj)
+        {
+            var conexao = ConnectionFactory.Build();
+            conexao.Open();
+                    
+            var query = "SELECT imoveis.* from imoveis inner join favoritoscorretora on imoveis.Codigo = favoritoscorretora.ID_Imovel where favoritoscorretora.CNPJ_Corretora= @id";
+
+            var comando = new MySqlCommand(query, conexao);
+
+            comando.Parameters.AddWithValue("@id", cnpj);
+
+            var dataReader = comando.ExecuteReader();
+
+            var imoveis = new List<ImoveisDTO>();
+
+
+            while (dataReader.Read())
+            {
+                var imovel = new ImoveisDTO();
+                imovel.Codigo = int.Parse(dataReader["Codigo"].ToString());
+                imovel.Endereco = dataReader["endereco"].ToString();
+                imovel.CEP = dataReader["cep"].ToString();
+                imovel.Bairro = dataReader["bairro"].ToString();
+                imovel.Cidade = dataReader["cidade"].ToString();
+                imovel.Tipo = dataReader["tipo"].ToString();
+                imovel.Andares = int.Parse(dataReader["andares"].ToString());
+                imovel.Dormitorios = int.Parse(dataReader["dormitorios"].ToString());
+                imovel.Suites = int.Parse(dataReader["suites"].ToString());
+                imovel.Salas = int.Parse(dataReader["salas"].ToString());
+                imovel.Garagens = int.Parse(dataReader["garagens"].ToString());
+                imovel.AreaUtil = int.Parse(dataReader["areasUteis"].ToString());
+                imovel.CondominioFechado = int.Parse(dataReader["CondominioFechado"].ToString()).Equals(1);
+                imovel.Valor = double.Parse(dataReader["valor"].ToString());
+                imovel.Status = dataReader["status"].ToString();
+                imovel.AutorizaFoto = dataReader["autorizaFoto"].ToString().Equals(1);
+                imovel.AutorizaPlaca = int.Parse(dataReader["autorizaPlaca"].ToString()).Equals(1);
+                imovel.Finalidade = dataReader["finalidade"].ToString();
+                imovel.Descricao = dataReader["descricao"].ToString();
+                imovel.TaxaCondo = double.Parse(dataReader["taxaCondo"].ToString());
+                imovel.TaxaIPTU = double.Parse(dataReader["taxaIPTU"].ToString());
+                imovel.UnidadesDisponiveis = int.Parse(dataReader["unidadesDisponiveis"].ToString());
+                imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
+                int id = (int)imovel.Codigo;
+                imovel.ObservacoesNomes = PegaObservacoes(id);
+                imovel.NomeAutor = PegaNomeDono(id);
+
+                imoveis.Add(imovel);
+
+            }
+
+            conexao.Close();
+            return imoveis;
+
+        }
+
+        public List<ImoveisDTO> listarImoveisFavoritosImobiliaria(string cnpj)
+        {
+            var conexao = ConnectionFactory.Build();
+            conexao.Open();
+
+            var query = "SELECT imoveis.* from imoveis inner join favoritosimobiliaria on imoveis.Codigo = favoritosimobiliaria.ID_Imovel where favoritosimobiliaria.CNPJ_Imobiliaria = @id";
+
+            var comando = new MySqlCommand(query, conexao);
+
+            comando.Parameters.AddWithValue("@id", cnpj);
+
+            var dataReader = comando.ExecuteReader();
+
+            var imoveis = new List<ImoveisDTO>();
+
+
+            while (dataReader.Read())
+            {
+                var imovel = new ImoveisDTO();
+                imovel.Codigo = int.Parse(dataReader["Codigo"].ToString());
+                imovel.Endereco = dataReader["endereco"].ToString();
+                imovel.CEP = dataReader["cep"].ToString();
+                imovel.Bairro = dataReader["bairro"].ToString();
+                imovel.Cidade = dataReader["cidade"].ToString();
+                imovel.Tipo = dataReader["tipo"].ToString();
+                imovel.Andares = int.Parse(dataReader["andares"].ToString());
+                imovel.Dormitorios = int.Parse(dataReader["dormitorios"].ToString());
+                imovel.Suites = int.Parse(dataReader["suites"].ToString());
+                imovel.Salas = int.Parse(dataReader["salas"].ToString());
+                imovel.Garagens = int.Parse(dataReader["garagens"].ToString());
+                imovel.AreaUtil = int.Parse(dataReader["areasUteis"].ToString());
+                imovel.CondominioFechado = int.Parse(dataReader["CondominioFechado"].ToString()).Equals(1);
+                imovel.Valor = double.Parse(dataReader["valor"].ToString());
+                imovel.Status = dataReader["status"].ToString();
+                imovel.AutorizaFoto = dataReader["autorizaFoto"].ToString().Equals(1);
+                imovel.AutorizaPlaca = int.Parse(dataReader["autorizaPlaca"].ToString()).Equals(1);
+                imovel.Finalidade = dataReader["finalidade"].ToString();
+                imovel.Descricao = dataReader["descricao"].ToString();
+                imovel.TaxaCondo = double.Parse(dataReader["taxaCondo"].ToString());
+                imovel.TaxaIPTU = double.Parse(dataReader["taxaIPTU"].ToString());
+                imovel.UnidadesDisponiveis = int.Parse(dataReader["unidadesDisponiveis"].ToString());
+                imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
+                int id = (int)imovel.Codigo;
+                imovel.ObservacoesNomes = PegaObservacoes(id);
+                imovel.NomeAutor = PegaNomeDono(id);
+
+                imoveis.Add(imovel);
+
+            }
+
+            conexao.Close();
+            return imoveis;
+
+        }
+
         public List<string> PegaObservacoes(int id)
         {
             var allObservacoes = new List<string>();

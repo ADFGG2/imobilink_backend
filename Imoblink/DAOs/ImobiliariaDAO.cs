@@ -46,5 +46,34 @@ namespace Imoblink.DAOs
             comando.ExecuteNonQuery();
             conexao.Close();
         }
+        public void adicionarImovelFavorito(string id, int idImovel)
+        {
+            var conexao = ConnectionFactory.Build();
+            conexao.Open();
+
+            var query = @"insert into favoritosimobiliaria(CNPJ_Imobiliaria, ID_Imovel) values(@id, @idImovel);";
+
+            var comando = new MySqlCommand(query, conexao);
+            comando.Parameters.AddWithValue("@id", id);
+            comando.Parameters.AddWithValue("@idImovel", idImovel);
+
+            comando.ExecuteNonQuery();
+            conexao.Close();
+        }
+
+        public void removerImovelFavorito(string id, int idImovel)
+        {
+            var conexao = ConnectionFactory.Build();
+            conexao.Open();
+
+            var query = @"remove from favoritosimobiliaria where CNPJ_Imobiliaria = @id and ID_Imovel = @idImovel;";
+
+            var comando = new MySqlCommand(query, conexao);
+            comando.Parameters.AddWithValue("@id", id);
+            comando.Parameters.AddWithValue("@idImovel", idImovel);
+
+            comando.ExecuteNonQuery();
+            conexao.Close();
+        }
     }
 }
