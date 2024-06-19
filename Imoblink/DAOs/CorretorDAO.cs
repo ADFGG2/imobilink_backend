@@ -61,7 +61,7 @@ namespace Imoblink.DAOs
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = @"remove from favoritoscorretora where CNPJ_Corretora = @id and ID_Imovel = @idImovel;";
+            var query = @"delete from favoritoscorretora where CNPJ_Corretora = @id and ID_Imovel = @idImovel;";
 
             var comando = new MySqlCommand(query, conexao);
             comando.Parameters.AddWithValue("@id", id);

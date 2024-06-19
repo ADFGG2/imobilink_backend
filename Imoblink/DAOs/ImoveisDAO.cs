@@ -259,7 +259,7 @@ namespace Imoblink.DAOs
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "SELECT imoveis.*, COUNT(imovel_images.id) as quantas_imagens FROM imoveis LEFT JOIN imovel_images ON imovel.Codigo = imagem.id_imovel  where finalidade = 'VENDA' GROUP BY imoveis.Codigo HAVING COUNT(imovel_images.id) > 5;";
+            var query = @"SELECT imoveis.*, COUNT(imovel_images.id) as quantas_imagens FROM imoveis LEFT JOIN imovel_images ON imoveis.Codigo = imovel_images.id_imovel  where finalidade = 'VENDA' GROUP BY imoveis.Codigo HAVING COUNT(imovel_images.id) >= 5;";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();
@@ -307,7 +307,7 @@ namespace Imoblink.DAOs
             var conexao = ConnectionFactory.Build();
             conexao.Open();
 
-            var query = "SELECT imoveis.*, COUNT(imovel_images.id) as quantas_imagens FROM imoveis LEFT JOIN imovel_images ON imovel.Codigo = imagem.id_imovel  where finalidade = 'ALUGUEL' GROUP BY imoveis.Codigo HAVING COUNT(imovel_images.id) > 5;";
+            var query = "SELECT imoveis.*, COUNT(imovel_images.id) as quantas_imagens FROM imoveis LEFT JOIN imovel_images ON imoveis.Codigo = imovel_images.id_imovel  where finalidade = 'ALUGUEL' GROUP BY imoveis.Codigo HAVING COUNT(imovel_images.id) >= 5;";
 
             var comando = new MySqlCommand(query, conexao);
             var dataReader = comando.ExecuteReader();

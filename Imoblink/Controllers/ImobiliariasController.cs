@@ -16,7 +16,7 @@ namespace Imoblink.Controllers
     {
         [HttpPost]
         [Route("CadastrarImobiliaria")]
-
+        [AllowAnonymous]
         public IActionResult CadastrarImobiliaria([FromBody] ImobiliariaDTO imobiliaria)
         {
             var dao = new ImobiliariaDAO();

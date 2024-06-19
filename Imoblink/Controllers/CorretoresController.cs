@@ -16,6 +16,7 @@ namespace Imoblink.Controllers
     {
         [HttpPost]
         [Route("CadastrarCorretor")]
+        [AllowAnonymous]
 
         public IActionResult CadastrarCorretor([FromBody] CorretorDTO corretor)
         {
@@ -43,13 +44,13 @@ namespace Imoblink.Controllers
 
         [HttpPost]
         [Route("AdicionarImovelFavorito")]
-        public IActionResult AdicionarImovelFavorito(int idImovel)
+        public IActionResult AdicionarImovelFavorito(string idImovel)
         {
             var CPF = HttpContext.User.FindFirst("CPF")?.Value;
             var dao = new CorretorDAO();
-            dao.adicionarImovelFavorito(CPF, idImovel);
+            dao.adicionarImovelFavorito(CPF, int.Parse(idImovel));
 
-            return Ok();
+            return Ok(idImovel);
         }
 
         [HttpDelete]

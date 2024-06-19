@@ -13,7 +13,7 @@ namespace Imoblink.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [AllowAnonymous]
     public class ImoveisController : ControllerBase
     {
         [HttpPost]
@@ -130,6 +130,7 @@ namespace Imoblink.Controllers
 
         [HttpGet]
         [Route("ListarImoveisFavoritosCorretora")]
+        [Authorize]
         public IActionResult ListarImoveisFavoritosCorretora()
         {
             var CPF = HttpContext.User.FindFirst("CPF")?.Value;
@@ -140,6 +141,7 @@ namespace Imoblink.Controllers
 
         [HttpGet]
         [Route("ListarImoveisFavoritosImobiliaria")]
+        [Authorize]
         public IActionResult ListarImoveisFavoritosImobiliaria()
         {
             var CNPJ = HttpContext.User.FindFirst("CNPJ")?.Value;

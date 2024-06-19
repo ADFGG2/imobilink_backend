@@ -1,6 +1,7 @@
 ﻿using Imoblink.Azure;
 using Imoblink.DAOs;
 using Imoblink.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace Imoblink.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class PessoasJuridicasController : ControllerBase
     {
         [HttpPost]
@@ -23,6 +25,7 @@ namespace Imoblink.Controllers
 
         [HttpPost]
         [Route("DefinirImagemDePerfil")]
+        [Authorize]
         public IActionResult DefinirImagemDePerfil( string URLImage)
         {
 
