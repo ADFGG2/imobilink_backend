@@ -18,6 +18,7 @@ namespace Imoblink.Controllers
         [Route("CadastrarCorretor")]
         [AllowAnonymous]
 
+
         public IActionResult CadastrarCorretor([FromBody] CorretorDTO corretor)
         {
             var dao = new CorretorDAO();
@@ -56,6 +57,17 @@ namespace Imoblink.Controllers
         [HttpDelete]
         [Route("RemoverImovelFavorito")]
         public IActionResult RemoverImovelFavorito(int idImovel)
+        {
+            var CPF = HttpContext.User.FindFirst("CPF")?.Value;
+            var dao = new CorretorDAO();
+            dao.removerImovelFavorito(CPF, idImovel);
+
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("ListarFavoritos")]
+        public IActionResult ListarFavoritos(int idImovel)
         {
             var CPF = HttpContext.User.FindFirst("CPF")?.Value;
             var dao = new CorretorDAO();

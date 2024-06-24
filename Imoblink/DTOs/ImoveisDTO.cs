@@ -28,6 +28,8 @@ namespace Imoblink.DTOs
         public double TaxaIPTU { get; set; }
         public List<int>? Observacoes { get; set; }
         public string IdDono {  get; set; }
+        public string? EmailDono { get; set; }
+        public string? TelefonelDono { get; set; }
         public int UnidadesDisponiveis { get; set; }
         public List<string>? ObservacoesNomes { get; set; }
         public string? NomeAutor { get; set; } 

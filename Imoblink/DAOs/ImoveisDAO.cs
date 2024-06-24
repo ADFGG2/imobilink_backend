@@ -150,7 +150,10 @@ namespace Imoblink.DAOs
                 imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
-                imovel.NomeAutor = PegaNomeDono(id);
+                var dono = PegaDadosDono(id);
+                imovel.NomeAutor = dono[0];
+                imovel.EmailDono = dono[1];
+                imovel.TelefonelDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -199,7 +202,10 @@ namespace Imoblink.DAOs
                 imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
-                imovel.NomeAutor = PegaNomeDono(id);
+                var dono = PegaDadosDono(id);
+                imovel.NomeAutor = dono[0];
+                imovel.EmailDono = dono[1];
+                imovel.TelefonelDono = dono[2];
 
                 imoveis.Add(imovel);
             }
@@ -247,7 +253,10 @@ namespace Imoblink.DAOs
                 imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
-                imovel.NomeAutor = PegaNomeDono(id);
+                var dono = PegaDadosDono(id);
+                imovel.NomeAutor = dono[0];
+                imovel.EmailDono = dono[1];
+                imovel.TelefonelDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -295,7 +304,10 @@ namespace Imoblink.DAOs
                 imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
-                imovel.NomeAutor = PegaNomeDono(id);
+                var dono = PegaDadosDono(id);
+                imovel.NomeAutor = dono[0];
+                imovel.EmailDono = dono[1];
+                imovel.TelefonelDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -343,7 +355,10 @@ namespace Imoblink.DAOs
                 imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
-                imovel.NomeAutor = PegaNomeDono(id);
+                var dono = PegaDadosDono(id);
+                imovel.NomeAutor = dono[0];
+                imovel.EmailDono = dono[1];
+                imovel.TelefonelDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -395,7 +410,10 @@ namespace Imoblink.DAOs
                 imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
-                imovel.NomeAutor = PegaNomeDono(id);
+                var dono = PegaDadosDono(id);
+                imovel.NomeAutor = dono[0];
+                imovel.EmailDono = dono[1];
+                imovel.TelefonelDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -450,7 +468,10 @@ namespace Imoblink.DAOs
                 imovel.quantasImagens = int.Parse(dataReader["quantas_imagens"].ToString());
                 int id = (int)imovel.Codigo;
                 imovel.ObservacoesNomes = PegaObservacoes(id);
-                imovel.NomeAutor = PegaNomeDono(id);
+                var dono = PegaDadosDono(id);
+                imovel.NomeAutor = dono[0];
+                imovel.EmailDono = dono[1];
+                imovel.TelefonelDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -485,25 +506,26 @@ namespace Imoblink.DAOs
             conexao.Close();
             return allObservacoes;
         }
-        public string PegaNomeDono( int id)
+        public string[] PegaDadosDono( int id)
         {
-            string nome = "";
             var allObservacoes = new List<string>();
             var conexao = ConnectionFactory.Build();
+            string[] dados = new string[2];
             for (int i = 0; i < 2; i++)
             {
-                string query = "";
-                var query1 = "select imoblink.pessoafisica.nome as nome from imoblink.imovel_pessoafisica inner join imoblink.pessoafisica " +
-                         "on imoblink.imovel_pessoafisica.cpf_pessoaFisica = imoblink.pessoafisica.cpf " +
-                         "where imoblink.imovel_pessoafisica.codigo_imovel = @id;";
+                string[] query ;
+                var query1 = "select imoblink.pessoafisica.nome as nome, imoblink.pessoafisica.email as email, imoblink.pessoafisica.telefone as telefone from imoblink.imovel_pessoafisica inner join imoblink.pessoafisica " +
+                                "on imoblink.imovel_pessoafisica.cpf_pessoaFisica = imoblink.pessoafisica.cpf " +
+                                "where imoblink.imovel_pessoafisica.codigo_imovel = @id;";
 
-                var query2 = "select imoblink.pessoajuridica.NomeEmpresa as nome from imoblink.imovel_pessoajuridica inner join imoblink.pessoajuridica " +
+                var query2 = "select imoblink.pessoajuridica.NomeEmpresa, imoblink.pessoajuridica.email as email, imoblink.pessoafisica.telefone as telefone as nome from imoblink.imovel_pessoajuridica inner join imoblink.pessoajuridica " +
                              "on imoblink.imovel_pessoajuridica.CNPJ_pessoaJuridica = imoblink.pessoajuridica.CNPJ " +
                              "where imoblink.imovel_pessoajuridica.codigo_imovel = @id;";
 
 
                 if (i == 1)
                 {
+                    
                     conexao.Open();
                     var comando = new MySqlCommand(query1, conexao);
                     comando.Parameters.AddWithValue("@ID", id);
@@ -511,8 +533,10 @@ namespace Imoblink.DAOs
 
                     while (dataReader.Read())
                     {
-                        nome = dataReader["nome"].ToString();
-                        return nome;
+                        dados[0] = dataReader["nome"].ToString();
+                        dados[1] = dataReader["email"].ToString();
+                        dados[2] = dataReader["telefone"].ToString();
+                        return dados;
                     }
 
                 }
@@ -524,14 +548,16 @@ namespace Imoblink.DAOs
 
                         while (dataReader.Read())
                         {
-                            nome = dataReader["nome"].ToString();
-                            return nome;
-                        }
+                        dados[0] = dataReader["nome"].ToString();
+                        dados[1] = dataReader["email"].ToString();
+                        dados[2] = dataReader["telefone"].ToString();
+                        return dados;
+                    }
                     }
 
                 conexao.Close();
             }
-            return nome;
+            return dados;
         }
         public  void CadastrarImagem(Imovel_imagesDTO image)
         {
