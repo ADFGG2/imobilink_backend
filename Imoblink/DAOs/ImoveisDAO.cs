@@ -153,7 +153,7 @@ namespace Imoblink.DAOs
                 var dono = PegaDadosDono(id);
                 imovel.NomeAutor = dono[0];
                 imovel.EmailDono = dono[1];
-                imovel.TelefonelDono = dono[2];
+                imovel.TelefoneDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -205,7 +205,7 @@ namespace Imoblink.DAOs
                 var dono = PegaDadosDono(id);
                 imovel.NomeAutor = dono[0];
                 imovel.EmailDono = dono[1];
-                imovel.TelefonelDono = dono[2];
+                imovel.TelefoneDono = dono[2];
 
                 imoveis.Add(imovel);
             }
@@ -256,7 +256,7 @@ namespace Imoblink.DAOs
                 var dono = PegaDadosDono(id);
                 imovel.NomeAutor = dono[0];
                 imovel.EmailDono = dono[1];
-                imovel.TelefonelDono = dono[2];
+                imovel.TelefoneDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -307,7 +307,7 @@ namespace Imoblink.DAOs
                 var dono = PegaDadosDono(id);
                 imovel.NomeAutor = dono[0];
                 imovel.EmailDono = dono[1];
-                imovel.TelefonelDono = dono[2];
+                imovel.TelefoneDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -358,7 +358,7 @@ namespace Imoblink.DAOs
                 var dono = PegaDadosDono(id);
                 imovel.NomeAutor = dono[0];
                 imovel.EmailDono = dono[1];
-                imovel.TelefonelDono = dono[2];
+                imovel.TelefoneDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -413,7 +413,7 @@ namespace Imoblink.DAOs
                 var dono = PegaDadosDono(id);
                 imovel.NomeAutor = dono[0];
                 imovel.EmailDono = dono[1];
-                imovel.TelefonelDono = dono[2];
+                imovel.TelefoneDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -471,7 +471,7 @@ namespace Imoblink.DAOs
                 var dono = PegaDadosDono(id);
                 imovel.NomeAutor = dono[0];
                 imovel.EmailDono = dono[1];
-                imovel.TelefonelDono = dono[2];
+                imovel.TelefoneDono = dono[2];
 
                 imoveis.Add(imovel);
 
@@ -510,7 +510,7 @@ namespace Imoblink.DAOs
         {
             var allObservacoes = new List<string>();
             var conexao = ConnectionFactory.Build();
-            string[] dados = new string[2];
+            string[] dados = new string[3];
             for (int i = 0; i < 2; i++)
             {
                 string[] query ;
@@ -518,9 +518,7 @@ namespace Imoblink.DAOs
                                 "on imoblink.imovel_pessoafisica.cpf_pessoaFisica = imoblink.pessoafisica.cpf " +
                                 "where imoblink.imovel_pessoafisica.codigo_imovel = @id;";
 
-                var query2 = "select imoblink.pessoajuridica.NomeEmpresa, imoblink.pessoajuridica.email as email, imoblink.pessoafisica.telefone as telefone as nome from imoblink.imovel_pessoajuridica inner join imoblink.pessoajuridica " +
-                             "on imoblink.imovel_pessoajuridica.CNPJ_pessoaJuridica = imoblink.pessoajuridica.CNPJ " +
-                             "where imoblink.imovel_pessoajuridica.codigo_imovel = @id;";
+                var query2 = "select imoblink.pessoajuridica.NomeEmpresa, imoblink.pessoajuridica.email as email, imoblink.pessoajuridica.telefone as telefone, imoblink.pessoajuridica.NomeEmpresa as nome from imoblink.imovel_pessoajuridica inner join imoblink.pessoajuridica on imoblink.imovel_pessoajuridica.CNPJ_pessoaJuridica = imoblink.pessoajuridica.CNPJ where imoblink.imovel_pessoajuridica.codigo_imovel = @id;";
 
 
                 if (i == 1)
